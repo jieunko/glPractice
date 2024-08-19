@@ -1,7 +1,8 @@
 #pragma once
 
 #if defined(DWSF_VULKAN)
-
+#   define VMA_IMPLEMENTATION
+#   include "vk_mem_alloc.h"
 #    include <vulkan/vulkan.h>
 #    include <vector>
 #    include <string>
