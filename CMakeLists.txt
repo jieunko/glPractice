@@ -37,7 +37,7 @@ set(DW_SAMPLE_FRAMEWORK_INCLUDES ${DWSFW_INCLUDE_DIRS}
                                  ${IMGUI_INCLUDE_DIRS}
                                  ${ASSIMP_INCLUDE_DIRS}
                                  ${JSON_INCLUDE_DIRS}
-                                 ${VMA_INCLUDE_DIRS}
+                                 #${VMA_INCLUDE_DIRS}
                                  ${Vulkan_INCLUDE_DIR}
                                  PARENT_SCOPE)
 
