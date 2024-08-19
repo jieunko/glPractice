@@ -102,8 +102,8 @@ private:
     bool create_shaders()
     {
         // Create shaders
-        m_vs = dw::gl::Shader::create_from_file(GL_VERTEX_SHADER, "./shaders/test.vert");
-        m_fs = dw::gl::Shader::create_from_file(GL_FRAGMENT_SHADER, "./shaders/test.frag");
+        m_vs = dw::gl::Shader::create_from_file(GL_VERTEX_SHADER, std::string("../sample/shaders/test.vert"));
+        m_fs = dw::gl::Shader::create_from_file(GL_FRAGMENT_SHADER, std::string("../sample/shaders/test.frag"));
 
         if (!m_vs || !m_fs)
         {

@@ -1487,7 +1487,8 @@ Shader::Shader(GLenum type, std::string source) :
 {
     m_gl_shader = glCreateShader(type);
 
-    source = "#version 400 core\n" + std::string(source);
+    //source = "#version 400 core\n" + std::string(source);
+    source = std::string(source);
 
     GLint  success;
     GLchar log[512];

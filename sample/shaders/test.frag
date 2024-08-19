@@ -1,4 +1,4 @@
-#version 410
+#version 400
 
 out vec4 PS_OUT_Color;
 in vec3 PS_IN_FragPos;
