@@ -6,62 +6,6 @@
 #include <profiler.h>
 #include <assimp/scene.h>
 
-// Embedded vertex shader source.
-const char* g_sample_vs_src = R"(
-layout (location = 0) in vec4 VS_IN_Position;
-layout (location = 1) in vec4 VS_IN_TexCoord;
-layout (location = 2) in vec4 VS_IN_Normal;
-layout (location = 3) in vec4 VS_IN_Tangent;
-layout (location = 4) in vec4 VS_IN_Bitangent;
-layout (std140) uniform Transforms //#binding 0
-{ 
-	mat4 model;
-	mat4 view;
-	mat4 projection;
-};
-out vec3 PS_IN_FragPos;
-out vec3 PS_IN_Normal;
-out vec2 PS_IN_TexCoord;
-void main()
-{
-    vec4 position = model * vec4(VS_IN_Position.xyz, 1.0);
-	PS_IN_FragPos = position.xyz;
-	PS_IN_Normal = mat3(model) * VS_IN_Normal.xyz;
-	PS_IN_TexCoord = VS_IN_TexCoord.xy;
-    gl_Position = projection * view * position;
-}
-)";
-
-// Embedded fragment shader source.
-const char* g_sample_fs_src = R"(
-
-out vec4 PS_OUT_Color;
-in vec3 PS_IN_FragPos;
-in vec3 PS_IN_Normal;
-in vec2 PS_IN_TexCoord;
-uniform sampler2D s_Diffuse; //#slot 0
-void main()
-{
-	vec3 light_pos = vec3(-200.0, 200.0, 0.0);
-	vec3 n = normalize(PS_IN_Normal);
-	vec3 l = normalize(light_pos - PS_IN_FragPos);
-	float lambert = max(0.0f, dot(n, l));
-    vec3 diffuse = vec3(.0, 1.0, .0); //texture(s_Diffuse, PS_IN_TexCoord).xyz;// + vec3(1.0);
-	vec3 ambient = diffuse * 0.03;
-	vec3 color = diffuse * lambert + ambient;
-
-    PS_OUT_Color = vec4(l, 1.0);
-
-    // HDR tonemapping
-    //color = color / (color + vec3(1.0));
-    // gamma correct
-    //color = pow(color, vec3(1.0 / 2.2));
-
-    //PS_OUT_Color = vec4(color, 1.0);
-    //PS_OUT_Color = vec4(vec3(1.0, 0.0, 0.0), 1.0);
-}
-)";
-
 // Uniform buffer data structure.
 struct Transforms
 {
@@ -158,8 +102,8 @@ private:
     bool create_shaders()
     {
         // Create shaders
-        m_vs = dw::gl::Shader::create(GL_VERTEX_SHADER, g_sample_vs_src);
-        m_fs = dw::gl::Shader::create(GL_FRAGMENT_SHADER, g_sample_fs_src);
+        m_vs = dw::gl::Shader::create_from_file(GL_VERTEX_SHADER, "./shaders/test.vert");
+        m_fs = dw::gl::Shader::create_from_file(GL_FRAGMENT_SHADER, "./shaders/test.frag");
 
         if (!m_vs || !m_fs)
         {
