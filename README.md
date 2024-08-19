@@ -1,9 +1,11 @@
-# dwSampleFramework
+# RenderingSampleFramework
 
 [![License: MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://opensource.org/licenses/MIT)
 
 ## What is it?
 A simple C++ framework for implementing graphics technique samples using OpenGL or Vulkan.
+This repo is based on [dwsampleFramework](https://github.com/diharaw/dw-sample-framework.git) a wonderful work of diharaw!
+Based on diharaw's framework I am going to add some rendering methods!
 
 ## Features
 * Cross-platform
@@ -24,41 +26,11 @@ A simple C++ framework for implementing graphics technique samples using OpenGL 
 	* Cubemap SH projection
 	* BRDF LUT generation 
 
-## What it looks like
-Creating a project using dwSampleFramework is as easy as inheriting from the dw::Application class and overriding the methods you need.
-
-```c++
-#include <application.h>
-
-class Tutorial : public dw::Application
-{
-protected:
-	bool init(int argc, const char* argv[]) override
-	{
-		return true;
-	}
-
-	void update(double delta) override
-	{
-
-	}
-
-	void shutdown() override
-	{
-
-	}
-};
-
-DW_DECLARE_MAIN(Tutorial)
-``` 
-
-## Sample 
-The sample application will give you a basic understanding of how to create a simple graphics application using the framework. It simply renders a rotating Teapot. 
-
-![Sample](docs/sample.jpg)
 
 ## Building Sample
 Use [CMake](https://cmake.org/) version 3.8 or higher to generate a project for any IDE of your choice. The resulting project will contain all dependencies, framework library and sample application. The teapot model and texture can be found inside *data/sample_assets.zip*. Simply extract it into the directory containing the executable.
+
+Note: Currently vulkan build is not available! fix for newer imgui is needed!
 
 ## How to use in a project
 This will only cover using dwSampleFramework in a project that uses CMake since it is more practical and will make handling dependencies easier.
