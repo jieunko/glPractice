@@ -285,9 +285,10 @@ bool Application::init_base(int argc, const char* argv[])
     init_info.MinImageCount   = 2;
     init_info.ImageCount      = m_vk_backend->swap_image_count();
     init_info.CheckVkResultFn = nullptr;
+    init_info.RenderPass =  m_vk_backend->swapchain_render_pass()->handle();
 
-    ImGui_ImplVulkan_Init(&init_info, m_vk_backend->swapchain_render_pass()->handle());
-
+    //ImGui_ImplVulkan_Init(&init_info, m_vk_backend->swapchain_render_pass()->handle());
+    ImGui_ImplVulkan_Init(&init_info);
     vk::CommandBuffer::Ptr cmd_buf = m_vk_backend->allocate_graphics_command_buffer();
 
     VkCommandBufferBeginInfo begin_info;
@@ -297,13 +298,13 @@ bool Application::init_base(int argc, const char* argv[])
 
     vkBeginCommandBuffer(cmd_buf->handle(), &begin_info);
 
-    ImGui_ImplVulkan_CreateFontsTexture(cmd_buf->handle());
+    //ImGui_ImplVulkan_CreateFontsTexture(cmd_buf->handle());
 
     vkEndCommandBuffer(cmd_buf->handle());
 
     m_vk_backend->flush_graphics({ cmd_buf });
 
-    ImGui_ImplVulkan_DestroyFontUploadObjects();
+    //ImGui_ImplVulkan_DestroyFontUploadObjects();
 #    else
     ImGui_ImplGlfw_InitForOpenGL(m_window, false);
     ImGui_ImplOpenGL3_Init(imgui_glsl_version);
